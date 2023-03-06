@@ -1,5 +1,7 @@
+// require the model
 const { ProductTag } = require('../models');
 
+// create an array of objects with some data for product_id and tag_id
 const productTagData = [
   {
     product_id: 1,
@@ -51,6 +53,8 @@ const productTagData = [
   },
 ];
 
+// seed the category table
 const seedProductTags = () => ProductTag.bulkCreate(productTagData);
 
+// export the module
 module.exports = seedProductTags;
