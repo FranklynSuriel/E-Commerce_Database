@@ -1,5 +1,7 @@
+// require the model
 const { Category } = require('../models');
 
+// create an array of objects with some data for category_name
 const categoryData = [
   {
     category_name: 'Shirts',
@@ -18,6 +20,8 @@ const categoryData = [
   },
 ];
 
+// seed the category table
 const seedCategories = () => Category.bulkCreate(categoryData);
 
+// export the module
 module.exports = seedCategories;

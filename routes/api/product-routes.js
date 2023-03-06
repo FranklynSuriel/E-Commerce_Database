@@ -1,9 +1,9 @@
+// import Packages and models
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
-
-// get all products
+// create the route to get all products
 router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
@@ -11,13 +11,16 @@ router.get('/', async (req, res) => {
     const productData = await Product.findAll({
       include: [{ model: Category }, { model: Tag }],
     });
+
+    // response with a 200 status and the product data
     res.status(200).json(productData);
-  } catch (err) {
+
+  } catch (err) { // manage any error
     res.status(500).json(err)
   }
 });
 
-// get one product
+// create the route for get one product by id
 router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
@@ -25,17 +28,21 @@ router.get('/:id', async (req, res) => {
     const productData = await Product.findByPk(req.params.id, {
       include: [{ model: Category }, { model: Tag }]
     });
+    // if id is not valid/found send a message
     if (!productData) {
       res.status(404).json({ message: " No Product found with this id, Please try again " });
       return;
     }
+
+    // response with a 200 status and the product data
     res.status(200).json(productData);
-  } catch (err) {
+
+  } catch (err) { //manage any error
     res.status(500).json(err)
   }
 });
 
-// create new product
+// create the route for new product
 router.post('/', (req, res) => {
   /* req.body should look like this...
     {
@@ -67,7 +74,7 @@ router.post('/', (req, res) => {
     });
 });
 
-// update product
+// create the route for update a product by id
 router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -109,6 +116,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// create the route for delete (delete) a product by id
 router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
   try {
@@ -117,14 +125,19 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id
       }
     });
+    // if id is not valid/found send a message
     if (!productData) {
       res.status(404).json({ message: 'No product with this id, please try another id.' })
       return;
     }
+
+    // response with a 200 status and the product data
     res.status(200).json(productData);
-  } catch (err) {
+    
+  } catch (err) { // manage any error
     res.status(500).json(err);
   }
 });
 
+// Export the module
 module.exports = router;

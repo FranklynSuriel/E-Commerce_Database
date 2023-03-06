@@ -1,5 +1,7 @@
+// require the model
 const { Tag } = require('../models');
 
+// create an array of objects with some data for tag_name
 const tagData = [
   {
     tag_name: 'rock music',
@@ -27,6 +29,8 @@ const tagData = [
   },
 ];
 
+// seed the category table
 const seedTags = () => Tag.bulkCreate(tagData);
 
+// export the module
 module.exports = seedTags;

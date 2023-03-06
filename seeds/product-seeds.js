@@ -1,5 +1,7 @@
+// require the model
 const { Product } = require('../models');
 
+// create an array of objects with data for product_name,price, stock and category_id
 const productData = [
   {
     product_name: 'Plain T-Shirt',
@@ -33,6 +35,8 @@ const productData = [
   },
 ];
 
+// seed the product table
 const seedProducts = () => Product.bulkCreate(productData);
 
+// export the module
 module.exports = seedProducts;
